@@ -5,48 +5,111 @@ const Context = React.createContext();
 
 class ContextProvider extends Component {
   state = {
-    products: [ 
+    products: [
 
-],
+
+    ],
     filteredProducts: [],
-    cart: [],
+    cart: [ ],
     origin: "all",
-    maxPrice: 0
+    price: 0,
+    maxPrice: 0,
+    minPrice: 0,
+    sortedPrice: false,
+    discount: false
   };
 // handling filter eventts
   handleChange = evt => {
     const type = evt.target.type;
     const name = evt.target.name;
-    const value = evt.target.value;
+    const value = type === 'checkbox' ? evt.target.checked : evt.target.value;
     console.log(` type: ${type}, name: ${name}, value: ${value}`);
     this.setState({
       [name]: value
     }, this.filterProducts);
   };
+  // handlePromoCode = evt => {
+  //   this.setState({
+  //     promoCode: evt
+  //   }) 
+  //   if (evt === 'promo'){
+  //     console.log('valid promo code');
+  //     this.setState({
+  //        open: true
+  //     }) }
+  //     else {
+  //       this.setState({
+  //         open: false
+  //       }) 
+      
+  //   }
+  // }
+
+  // giveDiscountHandler = () => {
+  //   if (this.state.promoCode === 'DISCOUNT') {
+
+  //       this.setState(function() {
+  //         this.setState({
+  //           disablePromoButton: true
+  //         });
+  //       }
+  //   )}
+  // };
   filterProducts = () => {
-    // console.log("hi");
     let {
-      products, origin, maxPrice
+      products, origin, maxPrice, price, sortedPrice
     } = this.state;
     let copy = [...products];
+    price = price && parseInt(price);
+    console.log(price);
     if (origin !== 'all'){
       copy = copy.filter(item => item.origin === origin)
     }
+    // filtering by price
+    if(maxPrice){
+      copy = copy.filter(item => item.price <= price);
+    }
+    //sorting by price 
+    if(sortedPrice){
+      copy = copy.sort((a,b) => { return a.price-b.price})
+    }
+    // setting state
     this.setState({
       filteredProducts: copy,
     })
+    
+    
   };
+  // cart discount 
+  // applyDiscount = (discount = 1) => {
+  //   if(this.state.open){
+  //     this.setState({
+  //       open : false
+  //     })
+  //   let sum;
+  //   sum = this.state.cart.reduce((acc,curr) => {
+  //     return acc + curr.price
+  //   }, 0);
+  //   sum = sum * discount;
+  //   sum = sum.toFixed(2)
+  //   this.setState({
+  //    sum
+  //   })
+  // }
+  // }
+
+
+  
 //mounting & formatting
   componentDidMount() {
     let products = this.formatData(items);
     let maxPrice = Math.max(...products.map(product => product.price));
-    console.log(maxPrice);
     this.setState({
       products,
       filteredProducts: products,
+      price: maxPrice,
       maxPrice
     });
-    console.log(this.state);
   }
 
   formatData = items => {
@@ -99,6 +162,23 @@ class ContextProvider extends Component {
       };
     });
   };
+
+  getRoom = slug => {
+    let tempRooms = [...this.state.products];
+    const room = tempRooms.find(room => room.name === slug);
+    return room;
+  };
+// handlePromo
+handlePromo = (val) => {
+  if(val === "promo")
+  {console.log('valid promo code')
+this.setState({
+  promoCode: true
+}
+
+)
+}
+}
   // basket decreasing num of products
   decreaseQuantity = prod => {
     this.setState(state => {
@@ -130,7 +210,9 @@ class ContextProvider extends Component {
           remove: this.remove,
           increaseQuantity: this.increaseQuantity,
           decreaseQuantity: this.decreaseQuantity,
-          handleChange: this.handleChange
+          handleChange: this.handleChange,
+          getRoom: this.getRoom,
+          handlePromo: this.handlePromo
         }}
       >
         {this.props.children}

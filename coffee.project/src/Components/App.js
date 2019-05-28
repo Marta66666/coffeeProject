@@ -6,6 +6,7 @@ import Shop from "./Shop";
 import Cart from "./Cart"
 import '../css/App.css';
 import Product from "./Product";
+import SingleProduct from './SingleProduct'
 
 class App extends Component {
   state = {
@@ -45,7 +46,7 @@ turnOffMenu = () => {
           <Switch>
             <Route exact path="/" component={Home}/>
             <Route exact path="/shop" component={Shop}/>
-            <Route exact path="/shop/:product?" component={Product}/>
+            <Route exact path="/shop/:slug" component={SingleProduct}/>
             <Route exact path="/cart" component={Cart}/>
 
             <Route component={Error}/>
