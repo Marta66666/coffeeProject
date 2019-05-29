@@ -1,13 +1,12 @@
 import React, { Component } from "react";
 import { Context } from "../Context/Context";
-import {  NavLink} from "react-router-dom";
-
+import { NavLink } from "react-router-dom";
 
 export default class Cart extends Component {
   static contextType = Context;
+
   state = {
-    inputVal: "",
-    promoActive: false
+    inputVal: ""
   };
   handleChange = e => {
     this.setState({
@@ -15,21 +14,14 @@ export default class Cart extends Component {
     });
   };
   render() {
-    let { cart } = this.context;
-    let {
-      remove,
-      increaseQuantity,
-      decreaseQuantity,
-      handlePromo,
-      promoCode
-    } = this.context;
-    let estimatedPrice = !promoCode
-      ? cart.reduce((acc, curr) => {
-          return acc + curr.price * curr.quantity;
-        }, 0)
-      : cart.reduce((acc, curr) => {
-          return acc + curr.price * curr.quantity * 0.995;
-        }, 0);
+    let { cart, remove, changeQuantity, handlePromo, promoCode } = this.context;
+
+    const count = (num = 1) => {
+      return cart.reduce((acc, curr) => {
+        return acc + curr.price * curr.quantity * num;
+      }, 0);
+    };
+    let estimatedPrice = !promoCode ? count() : count(0.9);
     return (
       <div className="Cart">
         {cart.length > 0 && (
@@ -45,14 +37,14 @@ export default class Cart extends Component {
                       <button
                         className="Cart-btn-increase"
                         onClick={() => {
-                          increaseQuantity(prod);
+                          changeQuantity(prod, "+");
                         }}
                       >
                         +
                       </button>
                       <button
                         className="Cart-btn-decrease"
-                        onClick={() => decreaseQuantity(prod)}
+                        onClick={() => changeQuantity(prod, "-")}
                       >
                         -
                       </button>
@@ -68,7 +60,6 @@ export default class Cart extends Component {
             })}
             <p className="Cart-summedVal">{estimatedPrice.toFixed(2)}$</p>
             <button className="Cart-btn-remove" onClick={remove}>
-              {" "}
               remove everything
             </button>
             <br />
@@ -86,7 +77,7 @@ export default class Cart extends Component {
                 onChange={this.handleChange}
               />
               <button disabled={promoCode} type="submit">
-                submit me!!!!
+                submit promo code!
               </button>
             </form>
           </>
@@ -95,8 +86,8 @@ export default class Cart extends Component {
           <>
             <div>
               <p className="Cart-empty"> your cart is empty</p>
-              <NavLink activeStyle = {{color: 'white'}} exact to={`/shop`}> 
-              go back to shop!
+              <NavLink activeStyle={{ color: "white" }} exact to={`/shop`}>
+                go back to shop!
               </NavLink>
             </div>
           </>

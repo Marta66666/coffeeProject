@@ -1,0 +1,67 @@
+/* navigation  */
+.nav-links {
+    z-index: $z-index-nav-links;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    background: #181919; /* fallback for old browsers */
+    background: -webkit-linear-gradient(
+      to bottom,
+      $nav-gradientFirst-color,
+      $nav-gradientSec-color
+    ); /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(
+      to bottom,
+      $nav-gradientFirst-color,
+      $nav-gradientSec-color
+    ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    pointer-events: none;
+    clip-path: circle(0px at 100% 0);
+    -webkit-clip-path: circle(0px at 100% 0);
+    transition: all 0.7s ease-out;
+    list-style: none;
+  }
+  .nav-links li {
+    padding: 20px 30px;
+    width: 220px;
+    text-align: center;
+    border-bottom: 1px solid $navLinks-border-color;
+  }
+  .nav-links li a {
+    text-transform: uppercase;
+    color: $main-font-color;
+    text-decoration: none;
+    padding: 20px 30px;
+    display: inline-block;
+  }
+  
+  .nav-links.open {
+    clip-path: circle(1000px at 130% -10%);
+    -webkit-clip-path: circle(2000px at 130% -10%);
+    pointer-events: all;
+  }
+  
+  .nav-links.open li {
+    animation: move-up 1s ease-out both;
+  }
+  .nav-links.open li a:hover {
+    transform: translateY(-3px);
+    text-shadow: -3px 5px 5px $navLinks-textShadow-color;
+  }
+  
+  @keyframes move-up {
+    0% {
+      transform: translateY(30px);
+      opacity: 0;
+    }
+    100% {
+      transform: translateY(0);
+      opacity: 1;
+    }
+}

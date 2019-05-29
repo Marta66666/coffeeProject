@@ -1,0 +1,102 @@
+.Filter-container {
+  background-color: $product-txtContainer-darkerColor;
+  width: 85%;
+  height: 290px;
+  border-radius: 10%;
+  overflow: hidden;
+  position: relative;
+}
+.Filter-form {
+  display: flex;
+  height: 100%;
+  text-shadow: 1px 1px 6px $navLinks-textShadow-color;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  text-transform: uppercase;
+  background: -webkit-linear-gradient(
+    to bottom,
+    $product-txtContainer-color,
+    $product-txtContainer-darkerColor
+  ); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(
+    to bottom,
+    $product-txtContainer-color,
+    $product-txtContainer-darkerColor
+  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+}
+.Filter-form-title {
+  margin-top: 40px;
+  background-color: red;
+  text-align: center;
+  letter-spacing: 1px;
+  text-shadow: 2px 2px 2px $navLinks-textShadow-color;
+  font-size: 24px;
+  &:hover::after {
+  background-color: $product-secBtn-color;
+
+  }
+  &::after {
+    content: "";
+    display: block;
+    width: 100%;
+    height: 3px;
+    margin-top: 5px;
+   background-color: transparent;
+    transition: all .3s ease-out
+  }
+}
+
+.Filter-form-inputs {
+// background-color: aqua;
+width: 90%;
+height:100%;
+margin: 5px 0 10px 0;
+display: flex;
+flex-direction: column;
+justify-content: space-evenly;
+align-items: center;
+}
+
+.Filter-container-input{
+// background-color: pink;
+display: flex;
+justify-content: space-between;
+width: 80%;
+}
+// .Filter-container-origin {
+//   background-color: red;
+//   width: 100%;
+//   display: flex;
+//   justify-content: space-around;
+// }
+
+.Filter-select-origin {
+	position: relative;		
+		width: 180px;
+		box-shadow: 1px 0px 5px 0 rgba(56, 50, 50, 0.185);
+        border-radius: 5px;
+        color: $main-font-color;
+        background-color: $product-txtContainer-darkerColor;
+        text-transform: uppercase;
+}
+.Filter-select-origin:focus {
+    color: $main-font-color;
+    outline: none;
+    box-shadow: 0 0 3px 1px $product-secBtn-color;
+}
+
+.Filter-container-priceRange {
+    // background-color: red;
+    justify-content: space-between;
+    width: 80%;
+}
+.Filter-price-priceRange {
+    margin-right: -55px;
+}
+
+.Filter-input-priceRange{
+    background-color: red;
+    color: red;
+}

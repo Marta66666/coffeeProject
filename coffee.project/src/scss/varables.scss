@@ -1,0 +1,26 @@
+
+    /* colours */
+    /* fonts */
+    $main-font-color: #fff;
+    /* header */
+    $header-overlay-color: rgba(43, 40, 40, 0.685);
+    /* body */
+    $body-background-color: #7a7974;
+    /* navigation */
+    $nav-gradientFirst-color: #5a5954;
+    $nav-gradientSec-color:  #181919;
+    $navLinks-border-color :  rgb(167, 167, 167);
+    $navLinks-textShadow-color: rgba(36, 35, 35, 0.86);
+    /* shop & products */
+    $product-boxShadow-color: #3c3d3d;
+    $product-firstBtn-color: #a2d0a2;
+    $product-secBtn-color:   #d3bcdc;
+    $product-txtContainer-color: #a277aa;
+    $product-txtContainer-darkerColor: darken($product-txtContainer-color, 9%);
+  
+    /* z-indices */
+    $z-index-title-container: 1;
+    $z-index-nav-links: 2;
+    $z-index-hamburger: 3;
+
+  
